@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durga</title>
+    <!-- Font Awesome (Removed integrity attribute to avoid mismatches) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+      /* #welcome-box {
+        width: 100%;
+        height: 400px;  /* Set a height for better visibility */
+       
+      /*#welcome-box {
+        width: 100%;
+        height: auto;  
+        background-color: #f8f9fa;  
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;  
+      }*/
+      /* Resetting default styles */
+      
+            /* .navar a:hover { */
+              /* background-color: #575757;
+              border-radius: 4px;
+            }
+             */
+             .profile-container {
+        width: 80%;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f4f7fc;
+        color: #333;
+    }
+
+    tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    form {
+        margin-top: 30px;
+    }
+
+    label {
+        font-size: 14px;
+        color: #333;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    input[type="submit"] {
+        padding: 12px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+      
+
+
+
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">DURGA</div>
+        <ul>
+            <li><a href="Durga.html">Home</a></li>
+            <li><a href="safezone.html">SafeZone</a></li>
+            <li><a href="contact.html">Contacts</a></li>
+            <li><a href="Complain.html">Complain</a></li>
+            <li><a href="update.html">UpdateProfile</a></li>
+            <li><a href="logout.php"><i class="fa-solid fa-user fa-lg"></i> Logout</a></li> 
+        </ul>
+    </nav>
+
+    <!-- Welcome Marquee -->
+    <marquee>
+        <h2 style="padding-top: 30px;">Welcome to Durga! Empowering Safety and Security.</h2>
+    </marquee>
+
+  
+    <div id="profile-container">
+        <h3>Update Your Profile</h3>
+        <form method='POST' action='update_profile.php'>
+            <label for='name'>Name:</label><br>
+            <input type='text' id='name' name='name'  required><br><br>
+            <label for='phone'>Phone:</label><br>
+            <input type='text' id='phone' name='phone'  required><br><br>
+            <label for='address'>Address:</label><br>
+            <input type='text' id='address' name='address'  required><br><br>
+            <label for='location'>Location:</label><br>
+            <input type='text' id='location' name='location'  required><br><br>
+            <input type='submit' value='Update'>
+        </form>
+       
+        
+    </div>
+ 
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Durga. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Dynamically load content from the server (PHP file)
+         fetch('update_profile.php')
+             .then(response => response.text())
+             .then(data => {
+                 document.getElementById('welcome-box').innerHTML = data;
+             })
+             .catch(error => {
+                 console.error('Error:', error);
+              document.getElementById('welcome-box').innerText = "Failed to load content.";
+           });
+    </script>
+</body>
+</html>

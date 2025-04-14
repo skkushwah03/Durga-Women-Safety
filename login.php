@@ -1,0 +1,143 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Durga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/stle.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+   <style>
+       
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            align-items: center;
+            justify-content: center;
+            margin-left: 35%;
+            margin-bottom: 8%;
+        }
+        
+        .text-center {
+            margin-top: 15px;
+        }
+        footer {
+            margin-top: auto;
+            width: 100%;
+            background-color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">DURGA</div>
+        <ul>
+            <li><a href="Durga.html">Home</a></li>
+            <li><a href="safezone.html">SafeZone</a></li>
+            <li><a href="contact.html">Contacts</a></li>
+            <li><a href="Complain.html">Complain</a></li>
+            <li><a href="Registration.html">Registration</a></li>
+            <li><a href="login.html"><i class="fa-solid fa-user fa-lg"></i></a></li> 
+        </ul>
+    </nav>
+    <div class="login-container">
+        <h2 class="text-center">Login</h2>
+        <form action="login.php"  method="POST" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label for="identifier">Email ID:</label>
+                <input type="text" class="form-control" id="email" name="email"  required placeholder=" Email ID">
+            </div>
+
+            <div class="form-group mt-3">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password should 6 character">
+            </div>
+
+            <div class="form-group text-center mt-4">
+                <button type="submit" class="btn btn-primary w-100" name="login">Login</button>
+            </div>
+        </form>
+
+        <div id="login-message" class="text-center mt-3"></div>
+
+        <div class="text-center mt-4">
+            <p>Don't have an account? <a href="Registration.html" class="text-primary">Register here</a></p>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Durga. All rights reserved.</p>
+        </div>
+    </footer>
+    <script> </script>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> -->
+<?php
+// Turn off error reporting during production
+error_reporting(0);
+
+// Database connection details
+$_servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "register";
+
+// Create connection
+$conn = mysqli_connect($_servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Check if the login form is submitted
+if (isset($_POST['login'])) {
+    // Sanitize user input to prevent SQL injection
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    // Prepare the query
+    $query = "SELECT * FROM registeration WHERE email='$email' AND password='$password'";
+
+    // Execute the query
+    $data = mysqli_query($conn, $query);
+
+    // Count the number of rows matching the criteria
+    $total = mysqli_num_rows($data);
+
+    if ($total > 0) {
+        // Redirect to user.html with a success message
+        $_SESSION['user_name']=$email;
+        echo "<script type='text/javascript'>
+                alert('Login successful!');
+                window.location.href = 'user.html';
+              </script>";
+            //   header('Location: user.html');
+    } else {
+        // Invalid login message
+        echo "<script type='text/javascript'>
+                alert('Incorrect email or password');
+                window.location.href = 'login.html';
+              </script>";
+            
+    }
+}
+
+// Close the connection
+mysqli_close($conn);
+?>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">DURGA</div>
+        <ul>
+            <li><a href="Durga.html">Home</a></li>
+            <li><a href="safezone.html">SafeZone</a></li>
+            <li><a href="contact.html">Contacts</a></li>
+            <li><a href="Complain.html">Complain</a></li>
+            <li><a href="Registration.html">Registration</a></li>
+            <li><a href="login.html"><i class="fa-solid fa-user fa-lg"></i></a></li> 
+        </ul>
+    </nav>
+    <div class="container">
+        <h2 class="text-center mt-5">Complaint/FIR Form</h2>
+        <form id="complaintForm" action="complaint.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email address">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="incident_date">Date of Incident:</label>
+                <input type="date" class="form-control" id="incident_date" name="incident_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location of Incident:</label>
+                <input type="text" class="form-control" id="location" name="location" required placeholder="Enter the location of the incident">
+            </div>
+
+            <div class="form-group">
+                <label for="incident_details">Details of Incident:</label>
+                <textarea class="form-control" id="incident_details" name="incident_details" rows="4" required placeholder="Describe the incident in detail"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="file_upload">Upload Supporting Documents/Images (optional):</label>
+                <input type="file" class="form-control-file" id="file_upload" name="file_upload">
+            </div>
+
+            <div class="form-group">
+                <label for="witness">Witness Information (if any):</label>
+                <textarea class="form-control" id="witness" name="witness" rows="3" placeholder="Provide any witness information"></textarea>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Submit Complaint/FIR</button>
+            </div>
+        </form>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Durga. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            // When the form is submitted
+            $("#complaintForm").submit(function(e) {
+                e.preventDefault();  // Prevent the form from submitting immediately
+
+                var email = $("#email").val(); // Get email from form
+
+                // Check if the email exists in the database using AJAX
+                $.ajax({
+                    url: 'check_email.php',  // PHP file to check email
+                    type: 'POST',
+                    data: { email: email },
+                    success: function(response) {
+                        if (response == 'not_registered') {
+                            alert("You must register first.");
+                        } else {
+                            // Submit the form if the email is registered
+                            $("#complaintForm")[0].submit();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
